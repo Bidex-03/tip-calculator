@@ -33,6 +33,8 @@ body{
     font-size: var(--fs-small);
 }
 
+/* frontend mentor signature */
+
 .attribution {
     font-size: 11px;
     text-align: center;
@@ -206,6 +208,7 @@ body{
     font-size: var(--fs-small);
     font-size: 0.8rem;
     color: var(--red);
+    opacity: 0;
 }
 
 .container-left .people input{
@@ -299,4 +302,38 @@ body{
 
 .container-right .reset button:hover{
     background: var(--light-grayish-cyan);
+}
+
+
+/* query@768px */
+
+@media screen and (max-width: 768px){
+    #container{
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+
+    #container .container-left{
+        width: 100%;
+        height: 100%;
+    }
+
+    .container-left .tip .tip-btn .custom-tip{
+        padding: 10px;
+        width: 100px;
+        background: var(--very-light-grayish-cyan);
+        color: var(--very-dark-cyan);
+        font-family: var(--space-mono);
+        font-size: var(--fs-small);
+        font-weight: var(--fw-large);
+        text-align: left;
+        border: none;
+
+    }
+
+    .container-right{
+        width: 100%;
+        height: 100%;
+    }
 }
