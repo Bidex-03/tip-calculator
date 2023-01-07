@@ -14,7 +14,9 @@
     --light-grayish-cyan: hsl(185, 41%, 84%);
     --very-light-grayish-cyan: hsl(189, 41%, 97%);
     --white: hsl(0, 0%, 100%);
-    --red: hsl(0, 100%, 74%);
+    --red: hsl(0, 100%, 50%);
+    --reset-disabled-bg: hsla(172, 67%, 45%, 0.295);
+    --reset-disabled-color: hsla(183, 100%, 15%, 0.288);
     --space-mono: 'Space Mono', monospace;
 
     --fw-large: 700;
@@ -72,6 +74,8 @@ body{
     width: 50%;
 }
 
+/* bill et input bar */
+
 .container-left .bill{
     display: flex;
     flex-direction: column;
@@ -120,6 +124,8 @@ body{
     color: var(--very-dark-cyan);
 }
 
+/* Select tip percentage*/
+
 #container .tip{
     display: flex;
     flex-direction: column;
@@ -138,6 +144,10 @@ body{
     grid-template-columns: repeat(3, 1fr);
     gap: 0.5rem;
     margin-bottom: 1rem;
+}
+
+.container-left .tip .tip-btn .active-tip{
+    background: var(--very-dark-cyan);
 }
 
 .container-left .tip .tip-btn button{
@@ -182,6 +192,8 @@ body{
 .container-left .tip .tip-btn .custom-tip {
     -moz-appearance: textfield;
 }
+
+/* Number of people et input bar */
 
 .container-left .people{
     display: flex;
@@ -304,6 +316,12 @@ body{
     background: var(--light-grayish-cyan);
 }
 
+.container-right .reset button:disabled{
+    background: var(--reset-disabled-bg);
+    color: var(--reset-disabled-color);
+    cursor: not-allowed;
+}
+
 
 /* query@768px */
 
@@ -329,11 +347,18 @@ body{
         font-weight: var(--fw-large);
         text-align: left;
         border: none;
-
     }
 
     .container-right{
         width: 100%;
         height: 100%;
     }
+}
+
+/* To be removed later */
+.bala-blu{
+    font-family: var(--space-mono);
+    font-size: 10px;
+    font-weight: var(--fw-medium);
+    color: var(--white);
 }
