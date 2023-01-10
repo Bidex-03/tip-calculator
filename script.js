@@ -6,66 +6,72 @@ const tipBtn = document.querySelectorAll(".tip-btn");
 const tipKeys = document.querySelectorAll(".tip-key");
 const customTipInput = document.querySelector(".custom-tip");
 const peopleInput = document.querySelector("#People");
-const tipValue = document.querySelector("#tip-value");
-const totalValue = document.querySelector("#total-value");
+const containerTipValue = document.querySelector("#tip-value");
+const containerTotalValue = document.querySelector("#total-value");
 const resetBtn = document.querySelector("#reset");
 
 
 
-tipValue.textContent = "$" + (0.0).toFixed(2);
-totalValue.textContent = "$" + (0.0).toFixed(2)
-
-billInput.addEventListener("input", (billInputValue) => {
-    billInputValue = Number(billInput.value);
-    console.log(billInputValue);
-})
-
-peopleInput.addEventListener("input", (peopleInputValue) => {
-    peopleInputValue = Number(peopleInput.value);
-    console.log(peopleInputValue);
-})
+let billValue = 0.0;
+let peopleValue = 1;
+let tipPercent = 0.15;
+containerTipValue.textContent = "$" + (0.0).toFixed(2);
+containerTotalValue.textContent = "$" + (0.0).toFixed(2);
 
 
-// tipKeys.forEach((tipKey) => {
-//     tipKey.addEventListener("click", handleClick);
-//     });
+billInput.addEventListener("input", billInputFunc);
+peopleInput.addEventListener("input", peopleInputFunc);
+tipKeys.forEach(tipVal => {
+    tipVal.addEventListener("click", tipClick);
+});
+customTipInput.addEventListener("input", customTipInputFunc);
+resetBtn.addEventListener("click", resetBtnFunc);
 
-tipKeys.forEach(tipKey => {
-    tipKey.classList.remove("active-tip");
-    tipKey.addEventListener("click", (e) => {
-        if (e.target.textContent === tipKey.textContent) {
-            e.target.classList.add("active-tip");
-            console.log(billInput.value * (parseFloat(e.target.textContent)) / 100);
-            tipValue.innerHTML = "$" + (billInput.value * (parseFloat(e.target.textContent)) / 100).toFixed(2);
+
+
+function billInputFunc() {
+    billValue = parseFloat(billInput.value);
+    calcTipFunc();
+}
+
+function peopleInputFunc() {
+    peopleValue = parseFloat(peopleInput.value);
+    calcTipFunc();
+}
+
+function tipClick(event) {
+    tipKeys.forEach(tipVal => {
+        tipVal.classList.remove("active-tip");
+        if(event.target.textContent === tipVal.textContent){
+            tipVal.classList.add("active-tip");
+            tipPercent = parseFloat(tipVal.textContent) / 100;
         }
+    });
+    calcTipFunc();
+}
+
+function calcTipFunc() {
+    if (peopleValue >= 1) {
+        let tip = (billValue * tipPercent) / peopleValue;
+        let total = (billValue / peopleValue) + tip;
+        containerTipValue.textContent = "$" + tip.toFixed(2);
+        containerTotalValue.textContent = "$" + total.toFixed(2);
+        resetBtn.disabled = false;
+    }
+}
+
+function customTipInputFunc() {
+    containerTipValue = parseFloat(customTipInput.value / 100);
+    tipKeys.forEach(tipVal => {
+        tipVal.classList.remove("active-tip");
     })
-})
+    calcTipFunc()
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Adding event listeners
-// billInput.addEventListener("input", calculateTip);
-// tipKeys.forEach((tipKey) => {
-//     tipKey.addEventListener("click", calculateTip);
-//     });
-// customTipInput.addEventListener("input", calculateTip);
-// peopleInput.addEventListener("input", calculateTip);
-// resetBtn.addEventListener("click", reset);
+function resetBtnFunc() {
+    billInput.value = "0"
+    billInputFunc()
+    peopleInput.value = "0"
+    peopleInputFunc()
+    customTipInput.value = ""
+}
